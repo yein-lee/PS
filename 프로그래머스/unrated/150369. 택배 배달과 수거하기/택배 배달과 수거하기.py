@@ -13,18 +13,13 @@ def solution(cap, n, deliveries, pickups):
             pickup_stack.append((i + 1, pickup))
 
     while delivery_stack or pickup_stack:
-        # print(delivery_stack)
-        # print(pickup_stack)
         
         if delivery_stack and pickup_stack:
             answer += max(delivery_stack[-1][0], pickup_stack[-1][0]) * 2
-            # print(max(delivery_stack[-1][0], pickup_stack[-1][0]), delivery_stack[-1][0], pickup_stack[-1][0])
         elif delivery_stack:
             answer += delivery_stack[-1][0] * 2
-            # print("delvery_stack", delivery_stack[-1][0])
         elif pickup_stack:
             answer += pickup_stack[-1][0] *2
-            # print("pickup_stack", pickup_stack[-1][0])
         
         delivery_left_count = cap
         pickup_left_count = cap
