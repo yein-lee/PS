@@ -1,0 +1,17 @@
+-- 코드를 입력하세요
+WITH car_id_sub AS (
+    SELECT history.CAR_ID
+    FROM CAR_RENTAL_COMPANY_RENTAL_HISTORY history
+    WHERE history.START_DATE < '2022-11-01' AND history.START_DATE >= '2022-08-01'
+    GROUP BY history.CAR_ID
+    HAVING count(*) >= 5
+)
+
+
+SELECT MONTH(history.START_DATE) AS MONTH, history.CAR_ID, COUNT(*) AS RECORDS
+FROM CAR_RENTAL_COMPANY_RENTAL_HISTORY history
+WHERE history.CAR_ID IN (SELECT CAR_ID FROM car_id_sub) 
+    AND history.START_DATE < '2022-11-01'AND history.START_DATE >= '2022-08-01'
+GROUP BY MONTH(history.START_DATE), history.CAR_ID
+HAVING COUNT(*) > 0
+ORDER BY MONTH(history.START_DATE) ASC, history.CAR_ID DESC
