@@ -14,9 +14,9 @@ def solution(today, terms, privacies):
         date, privacy_type = privacy.split()
         year, month, day = map(int, date.split('.'))
         c = year * 12 * 28 + month * 28 + day
-        e_c = c + term_dict[privacy_type] * 28
+        e_c = c + term_dict[privacy_type] * 28 - 1
         
-        if today_c > e_c - 1:
+        if today_c > e_c:
             answer.append(i+1)
         
     return answer
