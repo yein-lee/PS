@@ -5,22 +5,22 @@ from collections import defaultdict
 V, E = map(int, input().split())
 graph = defaultdict(list)
 for _ in range(E):
-    e1, e2, w = map(int, input().split())
-    graph[e1].append((e2, w))
-    graph[e2].append((e1, w))
+    v1, v2, w = map(int, input().split())
+    graph[v1].append((v2, w))
+    graph[v2].append((v1, w))
 
-visited = [False] * (V + 1)
-h = [(0, 1)]
-answer = 0
+visited = set()
+min_heap = [(0, 1)]
+total_weight = 0
 
-while h:
-    w, e = heapq.heappop(h)
-    if not visited[e]:
-        visited[e] = True
-        answer += w
-        for e2, w in graph[e]:
-            if not visited[e2]:
-                heapq.heappush(h, (w, e2))
+while min_heap:
+    w, v1 = heapq.heappop(min_heap)
+    if v1 not in visited:
+        visited.add(v1)
+        total_weight += w
 
-print(answer)
+        for v2, w in graph[v1]:
+            if v2 not in visited:
+                heapq.heappush(min_heap, (w, v2))
 
+print(total_weight)
