@@ -1,6 +1,3 @@
-from collections import deque
-
-
 def solution(n, tops):
     tiles = [0] * (2*n+1)
     for i, top in enumerate(tops):
